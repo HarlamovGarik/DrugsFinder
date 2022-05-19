@@ -1,0 +1,89 @@
+@import "varible";
+
+.Header-Font {
+  font-size: max(min(24px, 3vw), 16px);
+  min-font-size: 5px;
+  color: $text-secondary-color;
+}
+
+.Menu-Font {
+
+}
+
+.Primary-Font {
+
+}
+
+.Secondary-Font {
+  font-size: min(16px, 2vw);
+}
+
+.User-Dont-Select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.Clickable-font {
+  @extend .User-Dont-Select;
+  font-size: min(16px, 2vw);
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.header_font {
+  @extend .Header-Font;
+  @extend .border-right;
+  @extend .header-link;
+  @extend .User-Dont-Select;
+  text-decoration: none;
+
+}
+
+.border-right {
+  border-right: 3px solid $text-secondary-color;
+}
+
+.header-link {
+  @extend .Header-Font;
+
+  &:hover {
+    color: $text-primary-color;
+    text-decoration: underline;
+    border-color: $text-primary-color;
+  }
+}
+
+.search-font {
+  font-size: min(16px, 20vmax);
+  color: $text-search-color;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.logo-font {
+  @extend .Header-Font;
+  @extend .User-Dont-Select;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.link {
+  color: $black;
+  @extend .Clickable-font;
+  text-decoration: none;
+
+  &:hover {
+    color: $header-color-bg;
+    text-decoration: underline;
+  }
+}
+
+.logo-font {
+
+}
+
+.link_font {
+
+}
