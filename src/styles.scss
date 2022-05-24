@@ -1,9 +1,46 @@
 @import "sass/fonts";
 @import "sass/varible";
-@import "sass/Component/_component-list";
 @import "sass/normalize";
-*{
+@import "sass/Component/menu-component";
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.img-content {
+  padding: 2px;
+
+  .img-item {
+    display: block;
+    object-fit: cover;
+  }
+}
+
+.main-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.main-content-view {
+  display: flex;
+  justify-content: center;
+}
+
+.main-content-view .width {
+  width: 80%;
+}
+
+@media screen and (max-width: 1200px) {
+  .main-content-view .width {
+    width: 100%;
+  }
 }

@@ -1,0 +1,100 @@
+@import "src/sass/varible";
+
+.main-content-view__burger {
+  display: flex;
+  width: 100%;
+  padding: 5px 0;
+}
+
+.content-text {
+  margin-left: 25px;
+  margin-bottom: 10px;
+}
+
+.content-text-item {
+  margin-top: 20px;
+}
+
+ul {
+  list-style-type: none;
+  text-align: left;
+  align-items: center;
+}
+
+ul.pass-ul {
+  height: 26px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 2px;
+}
+
+li.pass-item {
+  display: flex;
+  margin-right: 10px;
+  flex-direction: row;
+}
+
+li.pass-item .content {
+  font-size: 12px;
+  color: rgb(77, 102, 136);
+  text-decoration: none;
+}
+
+li.pass-item .content::after {
+  content: '>';
+  color: $gray;
+  margin-left: 10px;
+}
+
+ul.filter-ul {
+  padding: 0 0 0 10px;
+  color: inherit;
+}
+
+li.filter-item {
+  padding: min(5px, 0.5vw);
+  justify-content: flex-start;
+  display: inline-flex;
+  color: inherit;
+  align-items: center;
+}
+
+.filter-menu select, .filter-menu input:not([type=checkbox]) {
+  width: max(10vw, 100px);
+  font-size: max(min(18px, 2vw), 16px);
+}
+
+.filter-menu input[type=number] {
+  width: 70px;
+  text-align: center;
+}
+
+label.for-checkbox {
+  margin-left: 10px;
+}
+
+.filter-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $gray;
+  padding: 10px;
+  margin-top: 15px;
+}
+
+.filter-menu div.filter-menu-buttons {
+  margin-right: 5px;
+  padding-right: 5px;
+}
+
+.filter-right-block {
+  padding-right: 10px;
+}
+
+ul.grid-items-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 25vmax), 1fr));
+}
+
