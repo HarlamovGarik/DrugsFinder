@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HeaderMenuComponent} from "../../header/header-menu/header-menu.component";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router, Params} from "@angular/router";
 import {SubscribeService} from 'src/app/service/subscribe.service'
-
 
 @Component({
   selector: 'app-grid-items',
@@ -11,56 +10,274 @@ import {SubscribeService} from 'src/app/service/subscribe.service'
 })
 export class GridItemsComponent implements OnInit {
   public selectCatalog: Object[] = []
-  public sortingBy: string = ""
+  public visibilityPage: Object[] = []
+  public filteredData: Object[] = []
+  public filter_list: Object[] = []
 
+  public filters: any[] = []
+
+  public max: number = 0;
+  public min: number = 0;
+
+  public filtered: boolean = false;
+
+  public maxElement: number = 15;
+  public sortingBy: string = "";
+
+  public key_link: string = "";
+  public key_string: string = "";
+  public previous: any;
+  public select_item: string = ''
   public manufacturer: string[] = [];
-  public type_form: string[] = [];
 
-  get_manufacturer(){
-    console.log(this.selectCatalog)
-    this.selectCatalog.forEach(el =>{
+  public page: {
+    _length: number,
+    _current: number,
+    _max: number,
+  } = {
+    _length: 0,
+    _current: 1,
+    _max: 0
+  }
+
+  public filterForm = [
+    {'text': 'by expensive to cheap', 'name': 'cheap', 'value': 'asc'},
+    {'text': 'by cheap to expensive', 'name': 'cheap', 'value': 'desc'},
+    {'text': 'by popular', 'name': 'popular', 'value': 'IsClicked'},
+    {'text': 'by discount', 'name': 'discount', 'value': 'discount'},
+    {'text': 'by rating', 'name': 'rating', 'value': 'rating'}
+  ]
+
+  get_minMax(obj: Object) {
+    // @ts-ignore
+    if (obj['discount'] != 0) {
       // @ts-ignore
-      if(el.manufacturer){
-        // @ts-ignore
-        this.manufacturer.push(el.manufacturer)
-      }
-
-    })
-    console.log(this.manufacturer)
+      return obj['discount']
+    }
+    // @ts-ignore
+    return obj['price']
   }
-  get_type_form(){
-    console.log(this.selectCatalog)
-    this.selectCatalog.forEach(el =>{
+
+  uniqueOption(list: Object[], nameItem: string): string[] {
+    const result: string[] = [];
+    list.forEach(el => {
       // @ts-ignore
-      if(el.short_title){
+      if (!result.includes(el[nameItem])) {
         // @ts-ignore
-        this.type_form.push(el.short_title)
+        result.push(el[nameItem]);
       }
+    });
+    return result
+  }
 
+  get_manufacturer() {
+    this.manufacturer = this.uniqueOption(this.selectCatalog, 'manufacturer')
+  }
+
+  delete_filter(index: number) {
+    const filter = this.filter_list[index]
+    // @ts-ignore
+    filter['value'] = filter['default']
+    // @ts-ignore
+    filter['filtered'] = false
+    // @ts-ignore
+    this.filters[index] = filter['default']
+    this.init_filter()
+  }
+
+  init_filter() {
+    // @ts-ignore
+    this.FilterByKey(this.filter_list[0]['value'], this.filter_list[1]['value'], this.filter_list[2]['value'], this.filter_list[3]['value'], this.filter_list[4]['value'])
+  }
+
+  FilterByKey(from: number, to: number, manufacture: string, favorite: boolean, discount: boolean) {
+    // @ts-ignore
+    console.log(manufacture, this.filter_list[2]["value"])
+    this.filteredData = this.selectCatalog;
+    this.filtered = false
+    // @ts-ignore
+    this.filter_list[4]['value'] = discount
+    // @ts-ignore
+    this.filter_list[4]['filtered'] = discount
+    // @ts-ignore
+    this.filter_list[3]['value'] = favorite
+    // @ts-ignore
+    this.filter_list[3]['filtered'] = favorite
+
+    // @ts-ignore
+    if (from != this.filter_list[0]['value'] || to != this.filter_list[1]['value']) {
+      // @ts-ignore
+      this.filter_list[0]['value'] = from
+      // @ts-ignore
+      this.filter_list[1]['value'] = to
+      // @ts-ignore
+      this.filter_list[0]['filtered'] = true
+      // @ts-ignore
+      this.filter_list[1]['filtered'] = true
+    }
+    // @ts-ignore
+    if (manufacture != this.filter_list[2]['value']) {
+      // @ts-ignore
+      this.filter_list[2]['value'] = manufacture
+      // @ts-ignore
+      this.filter_list[2]['filtered'] = true
+    }
+
+    this.filteredData = this.filteredData.filter(value => {
+      // @ts-ignore
+      if (value['discount'] != 0) {
+        // @ts-ignore
+        return value['discount'] >= from && value['discount'] <= to
+      } else {
+        // @ts-ignore
+        return value['price'] >= from && value['price'] <= to
+      }
     })
-    console.log(this.type_form)
-  }
-  constructor
-  (
-    private route: ActivatedRoute,
-    private SubscribeService: SubscribeService
+    this.filteredData = this.filteredData.filter(value => {
+      // @ts-ignore
+      return value['manufacturer'] == manufacture
+    })
 
-  )
-  {
-    console.log(this.selectCatalog)
-    this.get_manufacturer()
-    this.get_type_form()
+    if (favorite) {
+      this.filteredData = this.filteredData.filter(value => {
+        // @ts-ignore
+        if (value['favorite']) return value['favorite']
+      })
+    }
+    if (discount) {
+      this.filteredData = this.filteredData.filter(value => {
+        // @ts-ignore
+        if (value['discount'] > 0) return value['discount']
+      })
+    }
+    this.filter_list.forEach(el => {
+      // @ts-ignore
+      if (el['filtered']) this.filtered = true
+    })
+    this.ShowItems()
+    this.showPaginator()
   }
-  tests(object:any){
+  SortingByKey(key: string) {
+    console.log(key)
+    if (key == 'asc') {
+      // @ts-ignore
+      this.selectCatalog = this.selectCatalog.sort((a, b) => a['price'] < b['price'] ? 1 : -1);
+
+    } else if (key == 'desc') {
+      // @ts-ignore
+      this.selectCatalog = this.selectCatalog.sort((a, b) => a['price'] > b['price'] ? 1 : -1);
+
+    } else {
+      // @ts-ignore
+      this.selectCatalog = this.selectCatalog.sort((a, b) => a[key] < b[key] ? 1 : -1);
+    }
+    this.filteredData = this.selectCatalog
+
+    this.ShowItems()
+    this.init_filter()
+
+  }
+
+  clean() {
+    const array_number: number[] = this.selectCatalog.map(this.get_minMax)
+    this.min = Math.min(...array_number)
+    this.max = Math.max(...array_number)
+
+    this.filter_list = [
+      {'title': 'from', 'value': this.min, 'filtered': false, 'default': this.min},
+      {'title': 'to', 'value': this.max, 'filtered': false, 'default': this.max},
+      {'title': 'manufacturer', 'value': "", 'filtered': false, 'default': ""},
+      {'title': 'favorite', 'value': false, 'filtered': false, 'default': false},
+      {'title': 'discount', 'value': false, 'filtered': false, 'default': false},
+    ];
+    this.filters = [this.min, this.max, "", false, false];
+    this.filtered = false
+  }
+  showPaginator() {
+    // @ts-ignore
+    this.paginator?.nativeElement.innerHTML = ""
+    this.page._max = Math.ceil(this.filteredData.length / this.maxElement);
+
+    for (let i = 0; i < this.page._max; i++) {
+      let li = document.createElement('li');
+      li.classList.add('paginator-link');
+      li.onclick = (event) => {
+        this.pageChanged(event, i);
+      }
+      this.paginator?.nativeElement.appendChild(li)
+    }
+  }
+  ShowItems() {
+    this.visibilityPage = []
+    for (let i = this.maxElement * (this.page._current);
+         i < this.maxElement * (this.page._current + 1);
+         i++) {
+      if (this.filteredData[i])
+        this.visibilityPage.push(this.filteredData[i])
+    }
+  }
+  pageChanged(event: Event, page: number): void {
+    this.page._current = page;
+    try {
+      // @ts-ignore
+      event.target.classList.add('select')
+      if (event.target !== this.previous
+      ) {
+        this.previous.classList.remove('select')
+      }
+    } catch {
+
+    }
+
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        page: page === 0 ? null : page,
+      },
+      queryParamsHandling: 'merge',
+    });
+    this.previous = event.target
+    this.ShowItems()
+  }
+
+  @ViewChild('paginator') paginator: ElementRef | undefined;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private SubscribeService: SubscribeService) {
+  }
+
+  OpenCatalog(object: any) {
+    this.filtered = false
+    this.key_link = object
+    this.key_string = this.key_link.replace('-', " ").replace('-', " ")
     this.selectCatalog = HeaderMenuComponent.getCatalogBy_key(object)
-
+    if (this.selectCatalog != null) {
+      this.filteredData = this.selectCatalog
+      this.clean()
+      this.get_manufacturer()
+      this.showPaginator()
+      this.ShowItems()
+    }
   }
+
+
   ngOnInit(): void {
-    // const id = this.route.snapshot.paramMap.get('id');
-    HeaderMenuComponent.getCatalogBy_key("allergy-medication")
-    this.SubscribeService.subscribe$.subscribe((count) => this.tests(count))
+    this.activatedRoute.queryParams.subscribe((params: Params): void => {
+      this.page._current = +params['page'] ? +params['page'] : 0;
+    });
+    // @ts-ignore
+    this.selectCatalog = HeaderMenuComponent.getCatalogBy_key(this.activatedRoute.snapshot.paramMap.get('id'))
+    this.filteredData = this.selectCatalog
+    this.clean()
+    this.get_manufacturer()
+    this.showPaginator()
+    this.ShowItems()
 
+    // @ts-ignore
+    this.key_link = this.activatedRoute.snapshot.paramMap.get('id');
+    this.key_string = this.key_link.replace('-', " ").replace('-', " ");
+    this.SubscribeService.subscribe$.subscribe((count) => this.OpenCatalog(count))
   }
-
-
 }

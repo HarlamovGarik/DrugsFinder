@@ -1,6 +1,14 @@
 @import "src/sass/varible";
-p{
+
+p {
   font-family: 'Poppins', sans-serif;
+}
+
+i.select-star {
+  color: #eeaa59 !important;
+}
+i.star{
+  color: $gray;
 }
 div.item-card {
   border-bottom: 1px solid $gray;
@@ -17,7 +25,7 @@ div.item-card {
 
   .top-list {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     position: absolute;
     width: 90%;
@@ -30,8 +38,9 @@ div.item-card {
     .br {
       height: 100%;
       border-radius: 10px/12px;
-      padding: 5px 10px;
-      margin-left: 7px;
+      padding: 4px 6px;
+      margin-bottom: 5px;
+
     }
 
     .top-selling {
@@ -67,9 +76,9 @@ div.item-card {
   .img-item-content {
     width: 100%;
     display: flex;
-    height: max(200px, 50%);
+    height: max(160px, 50%);
     justify-content: center;
-    margin:  max(15px,3vh) 5px 5px;
+    margin: max(15px, 3vh) 5px 0;
 
     .img-item {
       aspect-ratio: 1/1;

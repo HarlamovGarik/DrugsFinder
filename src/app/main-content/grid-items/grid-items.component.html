@@ -1,104 +1,138 @@
 <div class="main-content">
   <div class="main-content-view">
     <div class="width">
-
-      <div class="content-text">
-        <div class="content-text-item">
-          <h2 class="name-catalogue header-link header_font">
-            Courses
-          </h2>
-        </div>
-        <div class="content-text-item">
-          <ul class="pass-ul">
-            <li class="pass-item">
-              <a href="/home" class="content">
-                <i class="fa-solid fa-house home"></i>
-              </a>
-            </li>
-          </ul>
+      <div class="header-catalog">
+        <div class="content-text">
+          <div class="content-text-item">
+            <h2 class="name-catalogue header-link header_font">
+              {{key_string}}
+            </h2>
+          </div>
+          <div class="content-text-item">
+            <ul class="pass-ul">
+              <li class="pass-item click">
+                <a href="/home">
+                  <i class="fa-solid fa-house home content"></i>
+                </a>
+              </li>
+              <li class="pass-item click">
+                <a href="/Catalog">
+                  <p class="content">Catalog</p>
+                </a>
+              </li>
+              <li class="pass-item click">
+                <a href="/Catalog/{{key_link}}">
+                  <p class="content">{{key_string}}</p>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-
     </div>
   </div>
-  <div class="main-content-view">
-    <div class="width" id="filterForm">
-      <form class="filter-menu" name="filterForm">
-        <div class="filter-left-block">
-          <ul class="filter-ul">
-            <li class="filter-item">
-              <div class="filter-menu-b ttons filter-font">
-                <label for="select-price">Price:
-                  <input id="select-price" type="number" name="price" max="" min="">
-                </label>
-              </div>
-            </li>
-            <li class="filter-item">
-              <div class="filter-menu-buttons filter-font">
-                <label class="for-select" for="select-manufacturer">Manufacturer:
-                  <select id="select-manufacturer" name="manufacturer">
-                    <option value="not_specify" disabled hidden selected>
-                    </option>
-                    <option *ngFor="let value of manufacturer" [value]="value">
-                      {{value.Text}}
-                    </option>
-                  </select>
-                </label>
-              </div>
-            </li>
-            <li class="filter-item">
-              <div class="filter-menu-buttons filter-font">
-                <label class="for-select" for="select-form">Form:
-                  <select id="select-form" name="form">
-                    <option value="not_specify" disabled hidden selected>
-                    </option>
-                    <option *ngFor="let value of type_form" [value]="value">
-                      {{value.Text}}
-                    </option>
-                  </select>
-                </label>
-              </div>
-            </li>
-            <li class="filter-item">
-              <div class="filter-menu-buttons filter-font">
-                <input type="checkbox" id="check-favorite" name="favorite">
-                <label class="for-checkbox" for="check-favorite">Only favorite</label>
-              </div>
-            </li>
-            <li class="filter-item">
-              <div class="filter-menu-buttons filter-font">
-                <input type="checkbox" id="check-discount" name="discount">
-                <label class="for-checkbox" for="check-discount">Only with discount</label>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="filter-right-block">
-          <select class="filter-font">
-            <option disabled hidden selected> by rating</option>
-            <option value="cheap" name="cheap"> from cheap to expensive</option>
-            <option value="expansive" name="expansive"> from expensive to cheap</option>
-            <option value="popular" name="popular"> by popular</option>
-            <option value="discount" name="discount"> by discount</option>
-            <option value="rating" name="rating"> by rating</option>
-          </select>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<div class="main-content">
   <div class="main-content-view">
     <div class="width">
-      <div>
+      <div class="my_row">
+        <div class="my_column">
+          <div class="filter-list filter-content" [ngStyle]="{'display': filtered ? 'flex': 'none'}">
+            <ul class="filter-list-ul">
+              <li *ngFor="let item of filter_list; index as i;" [name]="item.title"
+                  [ngStyle]="{'display': item.filtered ? 'block': 'none'}" class="click" (click)="delete_filter(i)">
+                {{item.title}} - {{item.value}}
+                <i class="fa-solid fa-xmark click"></i>
+              </li>
+            </ul>
+          </div>
+          <div class="filter-menu filter-content">
+            <div class="filter-left-block">
+              <form name="filter_by_key"
+                    (change)="FilterByKey(filters[0], filters[1], filters[2], filters[3], filters[4])">
+                <ul class="filter-list-ul">
+                  <li class="filter-item">
+                    <div class="filter-menu-b ttons filter-font">
+                      <label>Price
+                        <label for="from-price">from:
+                          <input id="from-price" type="number" name="from_price" placeholder="{{min}}" min={{min}}
+                                 max={{filters[1]}}
+                                 [(ngModel)]="filters[0]" value="{{min}}">
+
+                        </label>
+                        <label for="to-price">to:
+                          <input id="to-price" type="number" placeholder="{{max}}" name="to_price" min={{filters[0]}}
+                                 max={{max}}
+                                 [(ngModel)]="filters[1]" value="{{max}}">
+                        </label>
+                      </label>
+                    </div>
+                  </li>
+                  <li class="filter-item">
+                    <div class="filter-menu-buttons filter-font">
+                      <label class="for-select" for="select-manufacturer">Manufacturer:
+                        <select id="select-manufacturer" name="selector_manufacture" [(ngModel)]="filters[2]">
+                          <option *ngFor="let value of manufacturer" selected>
+                            {{value}}
+                          </option>
+                        </select>
+                      </label>
+                    </div>
+                  </li>
+                  <!--            <li class="filter-item">-->
+                  <!--              <div class="filter-menu-buttons filter-font">-->
+                  <!--                <label class="for-select" for="select-form">Form:-->
+                  <!--                  <select id="select-form" name="select_form">-->
+                  <!--                    <option value="not_specify" disabled hidden selected>-->
+                  <!--                    </option>-->
+                  <!--                    <option *ngFor="let value of type_form">-->
+                  <!--                      {{value}}-->
+                  <!--                    </option>-->
+                  <!--                  </select>-->
+                  <!--                </label>-->
+                  <!--              </div>-->
+                  <!--            </li>-->
+                  <li class="filter-item">
+                    <div class="filter-menu-buttons filter-font">
+                      <input type="checkbox" id="check-favorite" name="isFavorite" [(ngModel)]="filters[3]">
+                      <label class="for-checkbox" for="check-favorite">Only favorite</label>
+                    </div>
+                  </li>
+                  <li class="filter-item">
+                    <div class="filter-menu-buttons filter-font">
+                      <input type="checkbox" id="check-discount" name="isDiscount" [(ngModel)]="filters[4]">
+                      <label class="for-checkbox" for="check-discount">Only with discount</label>
+                    </div>
+                  </li>
+                </ul>
+              </form>
+            </div>
+            <div class="filter-right-block">
+              <form name="sorting_by_key" (change)="SortingByKey(select_item)">
+                <select class="filter-font" name="sorting_by"
+                        [(ngModel)]="select_item">
+
+                  <option *ngFor="let item of filterForm" [value]="item.value" [name]="item.name">
+                    {{item.text}}
+                  </option>
+                </select>
+              </form>
+            </div>
+          </div>
+        </div>
+
         <ul class="grid-items-view">
-          <div *ngFor="let card of selectCatalog">
+          <div *ngFor="let card of visibilityPage">
             <app-item-component [card]="card">
             </app-item-component>
           </div>
         </ul>
       </div>
+    </div>
+  </div>
+  <div class="main-content-view">
+    <div class="paginator-content">
+      <ul #paginator class="paginator">
+
+      </ul>
     </div>
   </div>
 </div>

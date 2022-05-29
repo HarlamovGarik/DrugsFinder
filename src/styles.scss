@@ -14,6 +14,13 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+p.price::after {
+  content: '₴';
+}
+.click{
+  user-select: none;
+  cursor: pointer;
+}
 .img-content {
   padding: 2px;
 
@@ -37,6 +44,40 @@ body {
 
 .main-content-view .width {
   width: 80%;
+  margin: 0 15px;
+}
+
+ul.paginator {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+
+  li {
+    border: 6px solid $header-color-bg-second;
+    background-color: $header-color-bg-second;
+    user-select: none;
+    padding: 2px;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 50px;
+    width: 20px;
+    aspect-ratio: 1/1;
+    text-align: center;
+
+    &:hover {
+      background-color: white;
+    }
+  }
+
+  li.select {
+    background-color: $header-color-bg-first;
+    box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.2);
+    border: 8px solid $header-color-bg-first;
+
+    &:hover {
+      background-color: $header-color-bg-second;
+    }
+  }
 }
 
 @media screen and (max-width: 1200px) {

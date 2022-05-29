@@ -25,7 +25,7 @@
     </div>
   </div>
   <div class="img-item-content">
-    <img class="img-item"
+    <img class="img-item" loading="lazy"
          src="{{card.picture_item}}"
          alt="{{card.alt}}">
   </div>
@@ -36,15 +36,21 @@
     <div class="text-height" [ngClass]="card.manufacturer ? '':'hidden'">
       <p>{{card.manufacturer}}</p>
     </div>
+    <div class="text-height">
+      <div class="rating-content">
+            <i [class]="list" *ngFor="let list of ratingLists"></i>
+      </div>
+    </div>
     <div class=" text-height" [ngClass]="card.discount ? '':'hidden'">
-      <p class="old-price">
+      <p class="old-price price">
         {{card.price}}
       </p>
     </div>
     <div class="text-height">
       <div class="buy-item">
-        <p class="new-price">{{get_Price()}}</p>
-        <i [ngClass]="!card.favorite ? 'fa-solid fa-cart-shopping buy': 'hidden'" (click)="AddToFavorite(card, true)"></i>
+        <p class="new-price price">{{get_Price()}}</p>
+        <i [ngClass]="!card.favorite ? 'fa-solid fa-cart-shopping buy': 'hidden'"
+           (click)="AddToFavorite(card, true)"></i>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" style="width: 26px;" class=""
              [ngClass]="card.favorite ? '': 'hidden'" (click)="OpenPopup()">
           <path
@@ -54,3 +60,4 @@
     </div>
   </div>
 </div>
+

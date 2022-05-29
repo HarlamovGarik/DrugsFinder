@@ -5,8 +5,7 @@ import {SubscribeService} from 'src/app/service/subscribe.service'
 
 @Component({
   selector: 'app-catalog',
-  templateUrl: './catalog.component.html',
-  styleUrls: ['./catalog.component.scss']
+  templateUrl: './catalog.component.html'
 })
 export class CatalogComponent implements OnInit {
 

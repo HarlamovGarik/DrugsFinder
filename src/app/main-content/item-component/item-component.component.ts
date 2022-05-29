@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {CardService} from "../../service/card.service";
 
 @Component({
@@ -8,14 +8,17 @@ import {CardService} from "../../service/card.service";
 })
 export class ItemComponentComponent implements OnInit {
   @Input() card: any;
+  @ViewChild("rating") rating: ElementRef | undefined;
+  public ratingLists: String[] = []
 
-  public AddToFavorite(card: object, fav: boolean){
-    console.log("Hello from Hell")
+  public AddToFavorite(card: object, fav: boolean) {
     this.CardService.setcart(card)
     this.card.favorite = fav
   }
-  public OpenPopup(){
+
+  public OpenPopup() {
   }
+
   public selectCatalog: Object[] = [];
   public discount_price: string = "";
 
@@ -28,16 +31,21 @@ export class ItemComponentComponent implements OnInit {
   }
 
   constructor(
-    private CardService:CardService
+    private CardService: CardService
   ) {
 
   }
 
   ngOnInit(): void {
     if (this.card.discount) {
-      let new_price: number = parseFloat(this.card.discount.replace(',', '.'));
-      let price: number = parseFloat(this.card.price.replace(',', '.'));
-      this.discount_price = Number(1 / (price / new_price) * 100).toFixed(1).concat(" %");
+      this.discount_price = ((1 - this.card.discount / this.card.price) * 100).toFixed(1).concat(" %");
+    }
+    for (let container = 0; container < 5; container++) {
+      let classList = "fa-solid fa-star star"
+      if (container < this.card.rating) {
+        classList += " select-star"
+      }
+      this.ratingLists.push(classList)
     }
   }
 

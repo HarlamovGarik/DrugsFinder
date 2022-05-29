@@ -1,14 +1,14 @@
 @import "src/sass/varible";
 
-.main-content-view__burger {
-  display: flex;
-  width: 100%;
-  padding: 5px 0;
-}
 
 .content-text {
   margin-left: 25px;
-  margin-bottom: 10px;
+}
+
+h2.name-catalogue {
+  text-transform: capitalize;
+  font-weight: lighter;
+  color: #e5e5e5;
 }
 
 .content-text-item {
@@ -27,28 +27,38 @@ ul.pass-ul {
   flex-direction: row;
   align-items: center;
   padding: 2px;
+  text-align: center;
+
+  a {
+
+    text-decoration: none;
+  }
 }
 
 li.pass-item {
-  display: flex;
   margin-right: 10px;
   flex-direction: row;
 }
 
 li.pass-item .content {
-  font-size: 12px;
-  color: rgb(77, 102, 136);
+  font-size: 16px;
+  color: #e5e5e5;
   text-decoration: none;
+
 }
 
 li.pass-item .content::after {
   content: '>';
-  color: $gray;
+  color: #363636;
+  font-weight: bold;
   margin-left: 10px;
 }
 
-ul.filter-ul {
-  padding: 0 0 0 10px;
+ul.filter-list-ul {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding-bottom: 10px;
   color: inherit;
 }
 
@@ -58,6 +68,12 @@ li.filter-item {
   display: inline-flex;
   color: inherit;
   align-items: center;
+}
+
+div.header-catalog {
+  background-color: $header-color-bg-second;
+  padding: 10px 5px;
+  margin-top: 40px;
 }
 
 .filter-menu select, .filter-menu input:not([type=checkbox]) {
@@ -74,14 +90,45 @@ label.for-checkbox {
   margin-left: 10px;
 }
 
-.filter-menu {
+.filter-content {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid $gray;
-  padding: 10px;
-  margin-top: 15px;
+  border: 1px solid $gray;
+  border-bottom: none;
+}
+
+.filter-menu {
+  justify-content: space-between;
+
+  > div {
+    padding: 10px;
+  }
+
+  label, select {
+    font-size: max(10px, 1vw);
+  }
+}
+
+.filter-list {
+
+  padding: 10px 0;
+
+  .filter-list-ul {
+
+    margin-left: 25px;
+
+    li {
+      margin-right: 8px;
+      display: flex;
+      align-items: center;
+      padding: 2px 4px;
+      font-size: 12px;
+      border: 1px solid #444444;
+      border-radius: 5px;
+      color: #444444;
+    }
+  }
 }
 
 .filter-menu div.filter-menu-buttons {
@@ -91,10 +138,58 @@ label.for-checkbox {
 
 .filter-right-block {
   padding-right: 10px;
+
+}
+
+.filter-left-block {
+  border-right: 1px solid $gray;
 }
 
 ul.grid-items-view {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(300px, 25vmax), 1fr));
+  border-left: 1px solid $gray;
+  border-top: 1px solid $gray;
 }
+
+@media screen and (min-width: 1300px) {
+
+  .my_column {
+    display: flex;
+    flex-direction: column;
+    width: $var-width-column;
+
+    .filter-content {
+      padding: 15px 5px 5px;
+      flex-direction: column-reverse;
+      border-right: none;
+      .filter-left-block{
+        border-right: none;
+      }
+      .filter-list-ul {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        li{
+          padding: 10px;
+          margin: 0 5px 10px;
+        }
+      }
+      .filter-content{
+        align-items: center;
+      }
+    }
+  }
+  .my_row {
+    display: flex;
+    flex-direction: row;
+
+    .grid-items-view{
+      width: calc(100% - #{$var-width-column})
+    }
+  }
+}
+
 
