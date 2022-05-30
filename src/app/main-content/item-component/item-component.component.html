@@ -1,4 +1,4 @@
-<div class="item-card">
+<div class="item-card" (click)="Click_Item()">
   <div class="icon-content">
     <i class="fa-regular fa-heart absolute favorite"></i>
     <i class="fa-solid  absolute fa-scale-balanced"></i>
@@ -10,13 +10,13 @@
           Top selling
         </p>
       </div>
-      <div class="discount-promo br" [ngClass]="card.discount ? '':'hidden'">
+      <div class="discount-promo br" [ngClass]="card['old-price']>0 ? '':'hidden'">
         <p>
           {{discount_price}}
         </p>
       </div>
     </div>
-    <div style="width: 50%;">
+    <div>
       <a class="img-content-source" href="{{card.source}}" target="_blank">
         <img class="img-item img-source"
              src="{{card.source_img}}"
@@ -38,17 +38,20 @@
     </div>
     <div class="text-height">
       <div class="rating-content">
-            <i [class]="list" *ngFor="let list of ratingLists"></i>
+        <i [class]="list" *ngFor="let list of ratingLists"></i>
       </div>
     </div>
-    <div class=" text-height" [ngClass]="card.discount ? '':'hidden'">
+    <div class=" text-height" [ngClass]="card['old-price'] ? '':'hidden'">
       <p class="old-price price">
-        {{card.price}}
+        {{card['old-price']}}
       </p>
+    </div>
+    <div class="text-height status">
+      <p>{{card.status}}</p>
     </div>
     <div class="text-height">
       <div class="buy-item">
-        <p class="new-price price">{{get_Price()}}</p>
+        <p class="new-price price">{{card['price']}}</p>
         <i [ngClass]="!card.favorite ? 'fa-solid fa-cart-shopping buy': 'hidden'"
            (click)="AddToFavorite(card, true)"></i>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" style="width: 26px;" class=""

@@ -96,8 +96,8 @@ div.item-card {
     border-radius: 10px/12px;
 
     .img-source {
-      width: 70%;
-      margin-left: 10px;
+      height: min(18px, 2vw);
+      overflow-x: hidden;
     }
   }
   .style-old-price{
@@ -112,12 +112,16 @@ div.item-card {
     font-size: 0.75vmax;
     flex-direction: column;
     margin-left: 5px;
-
+    .status{
+      color: #1f9a55;
+      font-weight: bold;
+    }
     .text-height {
       margin-top: 2px;
 
       & p {
         text-transform: capitalize;
+        font-size: 15px;
       }
 
       & p.old-price {

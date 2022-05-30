@@ -35,10 +35,12 @@ export class ItemComponentComponent implements OnInit {
   ) {
 
   }
-
+  Click_Item(){
+    this.card.IsClicked++
+  }
   ngOnInit(): void {
-    if (this.card.discount) {
-      this.discount_price = ((1 - this.card.discount / this.card.price) * 100).toFixed(1).concat(" %");
+    if (this.card['old-price']) {
+      this.discount_price = ((1 - this.card['price'] / this.card['old-price']) * 100).toFixed(1).concat(" %");
     }
     for (let container = 0; container < 5; container++) {
       let classList = "fa-solid fa-star star"
