@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {GsonReaderService} from "./service/gson-reader.service"
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'DrugsFinder';
+  jsonDataResult: any;
+
+  constructor(
+    private catalog: GsonReaderService) {
+  }
+
+
 }
