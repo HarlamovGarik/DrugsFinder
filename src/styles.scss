@@ -15,7 +15,7 @@ body {
 }
 
 p.price::after {
-  content: '₴';
+  content: ' ₴';
 }
 .click{
   user-select: none;
@@ -50,6 +50,7 @@ p.price::after {
 ul.paginator {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   padding: 5px;
 
   li {

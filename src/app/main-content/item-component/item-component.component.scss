@@ -100,7 +100,11 @@ div.item-card {
       margin-left: 10px;
     }
   }
-
+  .style-old-price{
+    text-decoration: line-through;
+    font-size: 12px;
+    color: #5e5e5e;
+  }
 
   .text-content {
     margin-top: 2px;
@@ -117,9 +121,7 @@ div.item-card {
       }
 
       & p.old-price {
-        text-decoration: line-through;
-        font-size: 12px;
-        color: #5e5e5e;
+      @extend .style-old-price
       }
 
       & p.new-price {
@@ -160,3 +162,4 @@ div.item-card {
 .hidden {
   display: none;
 }
+

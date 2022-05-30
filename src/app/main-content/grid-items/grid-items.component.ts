@@ -200,10 +200,13 @@ export class GridItemsComponent implements OnInit {
 
     for (let i = 0; i < this.page._max; i++) {
       let li = document.createElement('li');
+      let a = document.createElement('a');
+      a.href = "#header-title-catalog"
       li.classList.add('paginator-link');
       li.onclick = (event) => {
         this.pageChanged(event, i);
       }
+      li.appendChild(a)
       this.paginator?.nativeElement.appendChild(li)
     }
   }
@@ -261,8 +264,6 @@ export class GridItemsComponent implements OnInit {
       this.ShowItems()
     }
   }
-
-
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       this.page._current = +params['page'] ? +params['page'] : 0;
