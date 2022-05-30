@@ -1,0 +1,263 @@
+<div class="overlay overlay-catalog" #overlay [ngStyle]="{'display': OpenOverlay()}"></div>
+<nav id="sidebar" [ngStyle]="{ 'left' : StyleHelper.sidebar ? '0px' : '-300px'}">
+  <div>
+    <div class="header-sidebar">
+      <div class="item-content logo-font img-content" routerLink="..">
+        <img src="assets/LogotypeDrugsFinder.png" alt="Drugs Finder" class="img-item" width="100px">
+      </div>
+      <i class="fa-solid fa-xmark" (click)="OpenSIDEBAR()"></i>
+    </div>
+    <div class="item-content catalog button help-ЗСУ">
+      <a
+        href="https://bank.gov.ua/ua/news/all/natsionalniy-bank-vidkriv-spetsrahunok-dlya-zboru-koshtiv-na-potrebi-armiyi"
+        target="_blank" class="link" title="Допоможіть армії ЗСУ"><p>
+        Допомогти ЗСУ | Help Ukraine </p></a>
+      <img src="assets/ukraine-icon.png"
+           width="20px"
+           alt="ukraine-icon"
+           style="padding: 2px; margin-left: 10px">
+    </div>
+    <ul class="sidebar-list">
+      <li>
+        <details class="sidebar-d-content">
+          <summary id="catalog">
+            Catalog
+          </summary>
+          <ul class="sidebar-list-med" id="homeSubmenu">
+            <li *ngFor="let name_catalogue of catalogues" (click)="test(name_catalogue)" class="catalog-li click">
+              {{name_catalogue}}
+            </li>
+          </ul>
+        </details>
+      </li>
+      <li>
+        <details class="sidebar-d-content">
+          <summary id="about">
+            Information
+          </summary>
+          <ul>
+            <li>
+              About us
+            </li>
+            <li>
+              Contact us
+            </li>
+            <li>
+              Terms and conditions
+            </li>
+            <li>
+              Condom policy
+            </li>
+            <li>
+              Delivery and payment
+            </li>
+          </ul>
+        </details>
+      </li>
+      <li>
+        <details class="sidebar-d-content">
+          <summary id="function">
+            Open
+          </summary>
+          <ul>
+            <li>
+              <i class="fa-solid fa-heart"></i>
+              Favorite
+            </li>
+            <li>
+              <i class="fa-solid fa-basket-shopping"></i>
+              Basket
+            </li>
+            <li>
+              <i class="fa-solid fa-scale-balanced"></i>
+              Compare
+            </li>
+            <li>
+              <i class="fa-solid fa-eye"></i>
+              Viewed products
+            </li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <h4 class="right">
+      We’re in social messengers
+    </h4>
+
+    <ul>
+      <ul class="messengers">
+        <li class="messenger">
+          <i class="fa-brands fa-twitter mes"></i>
+        </li>
+        <li class="messenger">
+          <i class="fa-brands fa-telegram mes"></i>
+        </li>
+        <li class="messenger">
+          <i class="fa-brands fa-facebook mes"></i>
+        </li>
+        <li class="messenger">
+          <i class="fa-brands fa-facebook-messenger mes"></i>
+        </li>
+        <li class="messenger">
+          <i class="fa-brands fa-whatsapp mes"></i>
+        </li>
+      </ul>
+    </ul>
+  </div>
+</nav>
+<div class="modal-menu" [ngStyle]="{'display': StyleHelper.popup_list ? 'flex': 'none'}">
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="header-modal">
+        <p>
+          Basket
+        </p>
+        <i class="fa-solid fa-xmark" (click)="OpenPOPUP_LIST()"></i>
+      </div>
+
+      <div class="bottom-content">
+        <div class="content">
+          <div class="fav-item" *ngFor="let card of cards">
+            <div class="fav-content top-fav-content">
+              <div>
+                <img class="img-item" width="75px"
+                     src="{{card.picture_item}}"
+                     alt="ауау">
+                <p> {{card.title}}</p>
+              </div>
+              <div>
+                <i class="fa-solid fa-xmark" (click)="deleteCard(card)"></i>
+              </div>
+            </div>
+            <div class="fav-content bot-fav-content price">
+              <p class="price" [ngClass]="card['old-price'] > 0 ? 'style-old-price': ''"> {{card['old-price']}}</p>
+              <p class="price"> {{card['price']}}</p>
+              <div class="click">
+                <a href="{{card.source}}" target="_blank">
+                  Purchase
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="img-content basket-empty" [ngStyle]="{'display': StyleHelper.popup_list_empty ? 'flex': 'none'}">
+            <img class="img-item basket-empty" src="assets/cat-shopping-cart.jpg" alt="basket-is-empty">
+            <p>Basket is empty</p>
+          </div>
+        </div>
+        <div class="bottom-header">
+          <div class="button" (click)="OpenPOPUP_LIST()">
+            <p>
+              Continue Add
+            </p>
+          </div>
+          <div>
+            <p class="price" [ngStyle]="{'display': !StyleHelper.popup_list_empty ? 'inline-block': 'none'}">
+              {{Get_Sum()}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="header">
+  <div class="help-ЗСУ">
+    <a
+      href="https://bank.gov.ua/ua/news/all/natsionalniy-bank-vidkriv-spetsrahunok-dlya-zboru-koshtiv-na-potrebi-armiyi"
+      target="_blank" class="link" title="Допоможіть армії ЗСУ"><p>
+      Допомогти ЗСУ | Help Ukraine </p></a>
+    <img src="assets/ukraine-icon.png"
+         width="20px"
+         alt="ukraine-icon"
+         style="padding: 2px; margin-left: 10px">
+  </div>
+  <div class="header-list" id="header-menu__burger">
+    <div class="header-content">
+      <div>
+          <i class="fa-solid fa-bars click" (click)="OpenSIDEBAR()"></i>
+      </div>
+      <div class="header-item hidden click" (click)="OpenCATALOG_lIST() ">
+        <div class="item-content catalog header_font header-link">
+
+          <i [ngClass]="!StyleHelper.catalog_list ? 'fa-solid fa-ellipsis-vertical' : 'fa-solid fa-xmark'"></i>
+          <p>
+            Catalogue
+          </p>
+        </div>
+      </div>
+      <div class="search-block">
+        <div class="item-content">
+          <div class="header-search-content">
+            <input id="header-search" autocomplete="off" name="header-search" placeholder="I want to find ..."
+                   title="I can look by:">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <button id="search-button" class="button_input" value="Result-search" name="search-button">
+              search
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="item-content">
+          <ul class="language">
+            <li class="click">
+              ua
+            </li>
+            <li class="click">
+              eu
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="header-item header_font header-link hidden">
+        <div class="item-content ">
+          <i class="fa-solid fa-address-card click"></i>
+        </div>
+      </div>
+      <div class="header-item basket header_font header-link">
+        <div class="item-content ">
+          <i class="fa-solid fa-cart-shopping click" (click)="OpenPOPUP_LIST()"></i>
+        </div>
+      </div>
+      <div class=" catalog-list" [ngStyle]="{'display': StyleHelper.catalog_list ? 'flex' : 'none'}">
+        <div class="content-list">
+          <i class="fa-solid fa-xmark" (click)="OpenCATALOG_lIST()"></i>
+          <div class="content-column medicamens User-Dont-Select">
+            <p>
+              Medications
+            </p>
+            <div class="line">
+
+            </div>
+            <ul>
+              <li *ngFor="let name_catalogue of catalogues" (click)="MoveAndADD(name_catalogue.value)" class="click">
+                {{name_catalogue.text}}
+              </li>
+            </ul>
+          </div>
+          <div class="content-column medicamens" [ngStyle]="{'display': popular_catalogues.length == 0 ? 'none': 'block'}">
+            <div class="catalog-header">
+              <p class="purple">
+                Popular
+              </p>
+              <div class="line purple">
+            </div>
+            </div>
+            <ul>
+              <li *ngFor="let popularItem of popular_catalogues" (click)="MoveToCatalog(popularItem)">
+                {{popularItem}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="overlay overlay-list" [ngStyle]="{ 'opacity' : StyleHelper.catalog_list ? 1 : 0,
+                                 'display': StyleHelper.catalog_list ? 'block': 'none'}">
+
+      </div>
+    </div>
+  </div>
+</div>
+

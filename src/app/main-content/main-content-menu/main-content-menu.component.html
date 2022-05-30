@@ -1,0 +1,83 @@
+<div class="main-content">
+  <div class="main-content-view">
+    <div class="width">
+
+      <div class="content-text">
+        <div class="content-text-item">
+          <h2 class="name-catalogue header-link header_font">
+            Courses
+          </h2>
+        </div>
+        <div class="content-text-item">
+          <ul class="pass-ul">
+            <li class="pass-item">
+              <a href="/home" class="content">
+                <i class="fa-solid fa-house home"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="main-content-view">
+    <div class="width" id="filterForm">
+      <form class="filter-menu" name="filterForm">
+        <div class="filter-left-block">
+          <ul class="filter-ul">
+            <li class="filter-item">
+              <div class="filter-menu-b ttons filter-font">
+                <label for="select-price">Price:
+                  <input id="select-price" type="number" name="price" max="" min="">
+                </label>
+              </div>
+            </li>
+            <li class="filter-item">
+              <div class="filter-menu-buttons filter-font">
+                <label class="for-select" for="select-manufacturer">Manufacturer:
+                  <select id="select-manufacturer" name="manufacturer">
+                    <option value="not_specify" disabled hidden selected>
+                    </option>
+                  </select>
+                </label>
+              </div>
+            </li>
+            <li class="filter-item">
+              <div class="filter-menu-buttons filter-font">
+                <label class="for-select" for="select-form">Form:
+                  <select id="select-form" name="form">
+                    <option value="not_specify" disabled hidden selected>
+                    </option>
+                  </select>
+                </label>
+              </div>
+            </li>
+            <li class="filter-item">
+              <div class="filter-menu-buttons filter-font">
+                <input type="checkbox" id="check-favorite" name="favorite">
+                <label class="for-checkbox" for="check-favorite">Only favorite</label>
+              </div>
+            </li>
+            <li class="filter-item">
+              <div class="filter-menu-buttons filter-font">
+                <input type="checkbox" id="check-discount" name="discount">
+                <label class="for-checkbox" for="check-discount">Only with discount</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="filter-right-block">
+          <select class="filter-font">
+            <option disabled hidden selected> by rating</option>
+            <option value="cheap" name="cheap"> from cheap to expensive</option>
+            <option value="expansive" name="expansive"> from expensive to cheap</option>
+            <option value="popular" name="popular"> by popular</option>
+            <option value="discount" name="discount"> by discount</option>
+            <option value="rating" name="rating"> by rating</option>
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

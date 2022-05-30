@@ -44,16 +44,11 @@ export class GridItemsComponent implements OnInit {
     {'text': 'by expensive to cheap', 'name': 'cheap', 'value': 'asc'},
     {'text': 'by cheap to expensive', 'name': 'cheap', 'value': 'desc'},
     {'text': 'by popular', 'name': 'popular', 'value': 'IsClicked'},
-    {'text': 'by discount', 'name': 'discount', 'value': 'discount'},
+    {'text': 'by discount', 'name': 'discount', 'value': 'old-price'},
     {'text': 'by rating', 'name': 'rating', 'value': 'rating'}
   ]
 
   get_minMax(obj: Object) {
-    // @ts-ignore
-    if (obj['discount'] != 0) {
-      // @ts-ignore
-      return obj['discount']
-    }
     // @ts-ignore
     return obj['price']
   }
@@ -90,19 +85,19 @@ export class GridItemsComponent implements OnInit {
     this.FilterByKey(this.filter_list[0]['value'], this.filter_list[1]['value'], this.filter_list[2]['value'], this.filter_list[3]['value'], this.filter_list[4]['value'])
   }
 
-  FilterByKey(from: number, to: number, manufacture: string, favorite: boolean, discount: boolean) {
+  FilterByKey(from: number, to: number, manufacture: string, type_drugstore: string, favorite: boolean, discount: boolean) {
     // @ts-ignore
-    console.log(manufacture, this.filter_list[2]["value"])
+    console.log(type_drugstore, this.filter_list[3]["value"])
     this.filteredData = this.selectCatalog;
     this.filtered = false
     // @ts-ignore
-    this.filter_list[4]['value'] = discount
+    this.filter_list[5]['value'] = discount
     // @ts-ignore
-    this.filter_list[4]['filtered'] = discount
+    this.filter_list[5]['filtered'] = discount
     // @ts-ignore
-    this.filter_list[3]['value'] = favorite
+    this.filter_list[4]['value'] = favorite
     // @ts-ignore
-    this.filter_list[3]['filtered'] = favorite
+    this.filter_list[4]['filtered'] = favorite
 
     // @ts-ignore
     if (from != this.filter_list[0]['value'] || to != this.filter_list[1]['value']) {
@@ -122,22 +117,27 @@ export class GridItemsComponent implements OnInit {
       // @ts-ignore
       this.filter_list[2]['filtered'] = true
     }
-
+    // @ts-ignore
+    if (type_drugstore != this.filter_list[3]['value']) {
+      // @ts-ignore
+      this.filter_list[3]['value'] = type_drugstore
+      // @ts-ignore
+      this.filter_list[3]['filtered'] = true
+    }
     this.filteredData = this.filteredData.filter(value => {
       // @ts-ignore
-      if (value['discount'] != 0) {
-        // @ts-ignore
-        return value['discount'] >= from && value['discount'] <= to
-      } else {
-        // @ts-ignore
         return value['price'] >= from && value['price'] <= to
-      }
     })
+    if(manufacture != "")
     this.filteredData = this.filteredData.filter(value => {
       // @ts-ignore
       return value['manufacturer'] == manufacture
     })
-
+    if(type_drugstore != "")
+    this.filteredData = this.filteredData.filter(value => {
+      // @ts-ignore
+      return value['source_alt'] == type_drugstore
+    })
     if (favorite) {
       this.filteredData = this.filteredData.filter(value => {
         // @ts-ignore
@@ -147,7 +147,7 @@ export class GridItemsComponent implements OnInit {
     if (discount) {
       this.filteredData = this.filteredData.filter(value => {
         // @ts-ignore
-        if (value['discount'] > 0) return value['discount']
+        if (value['old-price'] > 0) return value['old-price']
       })
     }
     this.filter_list.forEach(el => {
@@ -187,10 +187,11 @@ export class GridItemsComponent implements OnInit {
       {'title': 'from', 'value': this.min, 'filtered': false, 'default': this.min},
       {'title': 'to', 'value': this.max, 'filtered': false, 'default': this.max},
       {'title': 'manufacturer', 'value': "", 'filtered': false, 'default': ""},
+      {'title': 'type-drugstore', 'value': "", 'filtered': false, 'default': ""},
       {'title': 'favorite', 'value': false, 'filtered': false, 'default': false},
       {'title': 'discount', 'value': false, 'filtered': false, 'default': false},
     ];
-    this.filters = [this.min, this.max, "", false, false];
+    this.filters = [this.min, this.max, "", "", false, false];
     this.filtered = false
   }
   showPaginator() {

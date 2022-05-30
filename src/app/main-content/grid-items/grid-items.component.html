@@ -1,3 +1,4 @@
+<script src="../item-component/item-component.component.ts"></script>
 <div class="main-content">
   <div class="main-content-view">
     <div class="width">
@@ -48,7 +49,7 @@
           <div class="filter-menu filter-content">
             <div class="filter-left-block">
               <form name="filter_by_key"
-                    (change)="FilterByKey(filters[0], filters[1], filters[2], filters[3], filters[4])">
+                    (change)="FilterByKey(filters[0], filters[1], filters[2], filters[3], filters[4], filters[5])">
                 <ul class="filter-list-ul">
                   <li class="filter-item">
                     <div class="filter-menu-b ttons filter-font">
@@ -78,28 +79,32 @@
                       </label>
                     </div>
                   </li>
-                  <!--            <li class="filter-item">-->
-                  <!--              <div class="filter-menu-buttons filter-font">-->
-                  <!--                <label class="for-select" for="select-form">Form:-->
-                  <!--                  <select id="select-form" name="select_form">-->
-                  <!--                    <option value="not_specify" disabled hidden selected>-->
-                  <!--                    </option>-->
-                  <!--                    <option *ngFor="let value of type_form">-->
-                  <!--                      {{value}}-->
-                  <!--                    </option>-->
-                  <!--                  </select>-->
-                  <!--                </label>-->
-                  <!--              </div>-->
-                  <!--            </li>-->
                   <li class="filter-item">
                     <div class="filter-menu-buttons filter-font">
-                      <input type="checkbox" id="check-favorite" name="isFavorite" [(ngModel)]="filters[3]">
+                      <label class="for-select" for="select-manufacturer">Type drugstore:
+                        <select id="select-drugstore" name="selector_drugstore" [(ngModel)]="filters[3]">
+                          <option selected value="APTEKA-ADD-UA">
+                            ADD-UA
+                          </option>
+                          <option selected value="APTEKA-911-UA">
+                            APTEKA-911
+                          </option>
+                          <option selected value="APTEKA-24-UA">
+                            APTEKA-24
+                          </option>
+                        </select>
+                      </label>
+                    </div>
+                  </li>
+                  <li class="filter-item">
+                    <div class="filter-menu-buttons filter-font">
+                      <input type="checkbox" id="check-favorite" name="isFavorite" [(ngModel)]="filters[4]">
                       <label class="for-checkbox" for="check-favorite">Only favorite</label>
                     </div>
                   </li>
                   <li class="filter-item">
                     <div class="filter-menu-buttons filter-font">
-                      <input type="checkbox" id="check-discount" name="isDiscount" [(ngModel)]="filters[4]">
+                      <input type="checkbox" id="check-discount" name="isDiscount" [(ngModel)]="filters[5]">
                       <label class="for-checkbox" for="check-discount">Only with discount</label>
                     </div>
                   </li>
