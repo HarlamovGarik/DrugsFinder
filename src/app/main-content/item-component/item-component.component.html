@@ -46,8 +46,8 @@
         {{card['old-price']}}
       </p>
     </div>
-    <div class="text-height status">
-      <p>{{card.status}}</p>
+    <div class="text-height" [ngClass]="card.status ? 'in_stock' : ''">
+      <p>{{get_Status()}}</p>
     </div>
     <div class="text-height">
       <div class="buy-item">

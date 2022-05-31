@@ -23,11 +23,11 @@ export class ItemComponentComponent implements OnInit {
   public discount_price: string = "";
 
 
-  get_Price() {
-    if (this.card.discount) {
-      return this.card.discount
+  get_Status() {
+    if (this.card.status) {
+      return 'В наявності'
     } else
-      return this.card.price
+      return 'Немає в наявності'
   }
 
   constructor(
