@@ -10,7 +10,6 @@ export class GsonReaderService {
   private readonly dataJson: any;
 
   constructor() {
-    console.log(data.drugs);
     this.dataJson = data.drugs;
   }
 

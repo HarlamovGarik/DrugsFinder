@@ -1,4 +1,3 @@
-<script src="../item-component/item-component.component.ts"></script>
 <div class="main-content">
   <div class="main-content-view">
     <div class="width">
@@ -8,6 +7,9 @@
             <h2 class="name-catalogue header-link header_font"
                 id="header-title-catalog">
               {{key_string}}
+            </h2>
+            <h2 class="name-catalogue">
+              Found {{quantity}} drugs
             </h2>
           </div>
           <div class="content-text-item">
@@ -49,7 +51,7 @@
           <div class="filter-menu filter-content">
             <div class="filter-left-block">
               <form name="filter_by_key"
-                    (change)="FilterByKey(filters[0], filters[1], filters[2], filters[3], filters[4], filters[5])">
+                    (change)="FilterByKey(filters[0], filters[1], filters[2], filters[3], filters[4], filters[5], filters[6])">
                 <ul class="filter-list-ul">
                   <li class="filter-item">
                     <div class="filter-menu-b ttons filter-font">
@@ -106,6 +108,12 @@
                     <div class="filter-menu-buttons filter-font">
                       <input type="checkbox" id="check-discount" name="isDiscount" [(ngModel)]="filters[5]">
                       <label class="for-checkbox" for="check-discount">Only with discount</label>
+                    </div>
+                  </li>
+                  <li class="filter-item">
+                    <div class="filter-menu-buttons filter-font">
+                      <input type="checkbox" id="check-status_code" name="in_stock" [(ngModel)]="filters[6]">
+                      <label class="for-checkbox" for="check-status_code">Only with in stock</label>
                     </div>
                   </li>
                 </ul>

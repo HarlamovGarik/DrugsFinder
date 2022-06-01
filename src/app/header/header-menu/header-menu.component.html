@@ -24,8 +24,8 @@
             Catalog
           </summary>
           <ul class="sidebar-list-med" id="homeSubmenu">
-            <li *ngFor="let name_catalogue of catalogues" (click)="test(name_catalogue)" class="catalog-li click">
-              {{name_catalogue}}
+            <li *ngFor="let name_catalogue of catalogues" (click)="MoveAndADD(name_catalogue.value)" class="catalog-li click">
+              {{name_catalogue.text}}
             </li>
           </ul>
         </details>
@@ -64,7 +64,7 @@
               <i class="fa-solid fa-heart"></i>
               Favorite
             </li>
-            <li>
+            <li (click)="OpenPOPUP_LIST()">
               <i class="fa-solid fa-basket-shopping"></i>
               Basket
             </li>
@@ -132,7 +132,7 @@
               </div>
             </div>
             <div class="fav-content bot-fav-content price">
-              <p class="price" [ngClass]="card['old-price'] > 0 ? 'style-old-price': ''"> {{card['old-price']}}</p>
+              <p class="price" [ngClass]="card['old-price'] > 0 ? 'style-old-price': 'style-none'"> {{card['old-price']}}</p>
               <p class="price"> {{card['price']}}</p>
               <div class="click">
                 <a href="{{card.source}}" target="_blank">

@@ -1,0 +1,31 @@
+@import "src/sass/varible";
+.content-text-intro {
+  color: white;
+  display: flex;
+  align-items: flex-start;
+  >:first-child{
+    width: 40%;
+  }
+  >div {
+    margin-top: 5px;
+    margin-left: 20px;
+  }
+  div.text-right{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.vertical-line{
+  height: 125px;
+  width: 4px;
+  margin: 2px 15px 2px 5px;
+  border-radius: 20px;
+  background-color: $gray;
+}
+@media screen and(max-width: 520px) {
+.content-text-intro{
+  flex-direction: column;
+}
+}

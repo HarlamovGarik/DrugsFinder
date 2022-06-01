@@ -1,0 +1,36 @@
+<div class="main-content">
+  <div class="main-content-view">
+    <div class="width">
+      <div class="header-catalog">
+        <div class="content-text">
+          <div class="content-text-item">
+            <h2 class="name-catalogue header-link header_font"
+                id="header-title-catalog">
+              Found by "{{search_request}}"
+            </h2>
+            <h2 class="name-catalogue">
+              Found {{find_items.length}} drugs
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main-content-view">
+    <div class="width">
+      <div [ngStyle]="{'display': find_items.length ? 'block' : 'none'}">
+        <ul class="grid-items-view">
+          <div *ngFor="let find_card of find_items">
+            <app-item-component [card]="find_card">
+            </app-item-component>
+          </div>
+        </ul>
+      </div>
+      <div [ngStyle]="{'display': find_items.length ? 'none' : 'block'}">
+        <p class="noting-to">
+          Nothing to find
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

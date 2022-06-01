@@ -253,13 +253,13 @@ div.line {
     width: max(15%, 50px);
     border: 1px solid $black;
     height: 35px;
-    color: $li-bg;
+    color: $text-header-color;
     background-color: $header-color-bg-second;
     border-radius: 5px/7px;
 
     &:hover, &:target {
-      color: $li-bg-hover;
-      background-color: $text-primary-color;
+      color: $text-header-color;
+      background-color: $li-bg-hover;
       background-image: none;
     }
   }
@@ -484,7 +484,9 @@ ul.language li:not(li:last-child)::after {
   color: #5e5e5e;
   margin-right: 5px;
 }
-
+.style-none{
+  display: none;
+}
 @media screen and (max-width: 1200px) {
   .header-content {
     width: 100%;

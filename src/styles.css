@@ -90,6 +90,13 @@ p.price::after {
   margin: 0 15px;
 }
 
+ul.grid-items-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 25vmax), 1fr));
+  border-left: 1px solid rgba(220, 220, 220, 0.86);
+  border-top: 1px solid rgba(220, 220, 220, 0.86);
+}
+
 ul.paginator {
   display: flex;
   flex-direction: row;
@@ -118,6 +125,28 @@ ul.paginator li.select {
 }
 ul.paginator li.select:hover {
   background-color: #49935a;
+}
+
+div.header-catalog {
+  background-color: #49935a;
+  padding: 10px 5px;
+  margin-top: 40px;
+}
+div.header-catalog .content-text {
+  margin: 0 25px;
+}
+div.header-catalog .content-text .content-text-item {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+div.header-catalog .content-text h2.name-catalogue {
+  text-transform: capitalize;
+  font-weight: lighter;
+  color: #e5e5e5;
+  font-size: max(1.4vmax, 14px);
 }
 
 @media screen and (max-width: 1200px) {

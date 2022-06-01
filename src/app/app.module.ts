@@ -15,6 +15,7 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { ItemPopupComponent } from './main-content/item-popup/item-popup.component';
 import { GridItemsPopupComponent } from './main-content/grid-items-popup/grid-items-popup.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     CatalogComponent,
     ItemPopupComponent,
     GridItemsPopupComponent,
+    SearchComponent,
   ],
     imports: [
         BrowserModule,

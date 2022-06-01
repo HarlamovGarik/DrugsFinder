@@ -46,7 +46,12 @@ p.price::after {
   width: 80%;
   margin: 0 15px;
 }
-
+ul.grid-items-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 25vmax), 1fr));
+  border-left: 1px solid $gray;
+  border-top: 1px solid $gray;
+}
 ul.paginator {
   display: flex;
   flex-direction: row;
@@ -80,6 +85,28 @@ ul.paginator {
     }
   }
 }
+div.header-catalog {
+  background-color: $header-color-bg-second;
+  padding: 10px 5px;
+  margin-top: 40px;
+  .content-text {
+    margin: 0 25px;
+    .content-text-item {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    h2.name-catalogue {
+      text-transform: capitalize;
+      font-weight: lighter;
+      color: #e5e5e5;
+      font-size: max(1.4vmax, 14px);
+    }
+  }
+}
+
 
 @media screen and (max-width: 1200px) {
   .main-content-view .width {

@@ -17,6 +17,7 @@ export class HeaderMenuComponent implements OnInit {
   static selectedOption: string = "";
   public cards = this.CardService.getcart()
   public sum: number = 0;
+  public find_request: string = "";
   public StyleHelper: {
     catalog_list: boolean,
     popup_list: boolean,
@@ -96,20 +97,6 @@ export class HeaderMenuComponent implements OnInit {
     } else
       return 'none'
   }
-
-  // @HostListener('overlay:click', ['$event'])
-  // onMouseClick(event: MouseEvent) {
-  //   // @ts-ignore
-  //   if (event.target !== this.overlay && (
-  //     this.StyleHelper.catalog_list ||
-  //     this.StyleHelper.sidebar ||
-  //     this.StyleHelper.popup_list
-  //   )) {
-  //     this.StyleHelper.catalog_list = false;
-  //     this.StyleHelper.sidebar = false;
-  //     this.StyleHelper.popup_list = false;
-  //   }
-  // }
 
   @HostListener('document:keydown.escape', ['$event'])
   onKeydownHandler(event: KeyboardEvent) {

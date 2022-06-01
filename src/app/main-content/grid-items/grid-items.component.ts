@@ -13,7 +13,7 @@ export class GridItemsComponent implements OnInit {
   public visibilityPage: Object[] = []
   public filteredData: Object[] = []
   public filter_list: Object[] = []
-
+  public quantity: number = 0
   public filters: any[] = []
 
   public max: number = 0;
@@ -85,7 +85,7 @@ export class GridItemsComponent implements OnInit {
     this.FilterByKey(this.filter_list[0]['value'], this.filter_list[1]['value'], this.filter_list[2]['value'], this.filter_list[3]['value'], this.filter_list[4]['value'])
   }
 
-  FilterByKey(from: number, to: number, manufacture: string, type_drugstore: string, favorite: boolean, discount: boolean) {
+  FilterByKey(from: number, to: number, manufacture: string, type_drugstore: string, favorite: boolean, discount: boolean, status: boolean) {
     // @ts-ignore
     console.log(type_drugstore, this.filter_list[3]["value"])
     this.filteredData = this.selectCatalog;
@@ -98,6 +98,10 @@ export class GridItemsComponent implements OnInit {
     this.filter_list[4]['value'] = favorite
     // @ts-ignore
     this.filter_list[4]['filtered'] = favorite
+    // @ts-ignore
+    this.filter_list[6]['value'] = status
+    // @ts-ignore
+    this.filter_list[6]['filtered'] = status
 
     // @ts-ignore
     if (from != this.filter_list[0]['value'] || to != this.filter_list[1]['value']) {
@@ -149,6 +153,11 @@ export class GridItemsComponent implements OnInit {
         // @ts-ignore
         if (value['old-price'] > 0) return value['old-price']
       })
+    } if (status) {
+      this.filteredData = this.filteredData.filter(value => {
+        // @ts-ignore
+        if (value['status']) return value['status']
+      })
     }
     this.filter_list.forEach(el => {
       // @ts-ignore
@@ -190,8 +199,9 @@ export class GridItemsComponent implements OnInit {
       {'title': 'type-drugstore', 'value': "", 'filtered': false, 'default': ""},
       {'title': 'favorite', 'value': false, 'filtered': false, 'default': false},
       {'title': 'discount', 'value': false, 'filtered': false, 'default': false},
+      {'title': 'status', 'value': false, 'filtered': false, 'default': false},
     ];
-    this.filters = [this.min, this.max, "", "", false, false];
+    this.filters = [this.min, this.max, "", "", false, false, false];
     this.filtered = false
   }
   showPaginator() {
@@ -259,6 +269,7 @@ export class GridItemsComponent implements OnInit {
     this.selectCatalog = HeaderMenuComponent.getCatalogBy_key(object)
     if (this.selectCatalog != null) {
       this.filteredData = this.selectCatalog
+      this.quantity = this.selectCatalog.length
       this.clean()
       this.get_manufacturer()
       this.showPaginator()
@@ -273,6 +284,7 @@ export class GridItemsComponent implements OnInit {
     this.selectCatalog = HeaderMenuComponent.getCatalogBy_key(this.activatedRoute.snapshot.paramMap.get('id'))
     this.filteredData = this.selectCatalog
     this.clean()
+    this.quantity = this.selectCatalog.length
     this.get_manufacturer()
     this.showPaginator()
     this.ShowItems()
